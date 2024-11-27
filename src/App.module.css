@@ -1,0 +1,11 @@
+.appContainer {
+  @apply relative z-10 flex flex-col items-center justify-center min-h-screen; 
+  background: linear-gradient(135deg, #ffe1fc, #ffb6c1);
+  text-align: center;
+}
+
+.title {
+  @apply text-4xl font-bold text-pink-300 mb-6; 
+  text-shadow: 2px 2px 4px rgba(49, 18, 34, 0.5); 
+}
+ 
