@@ -1,0 +1,36 @@
+.sparkleContainer {
+  @apply relative w-64 mb-6;
+}
+
+.input {
+  @apply w-full border border-pink-400 rounded-lg px-4 py-2 text-pink-600 bg-pink-50 focus:outline-none focus:ring-4 focus:ring-pink-500 shadow-md; 
+}
+
+.sparkle {
+  @apply absolute top-1/2 right-2 w-3 h-3 bg-pink-400; 
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  ); 
+  animation: sparkleInput 2s infinite ease-in-out;
+}
+
+@keyframes sparkleInput {
+  0%, 100% {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+ 

@@ -1,0 +1,49 @@
+.sparkleButton {
+  @apply relative text-white font-bold py-3 px-8 rounded-lg bg-gradient-to-r from-pink-500 via-pink-400 to-pink-500 mt-4 overflow-hidden shadow-lg text-lg cursor-pointer transition-transform transition-shadow;
+}
+
+.sparkleButton:hover {
+  @apply scale-110 shadow-xl; 
+}
+
+.sparkleButton::before,
+.sparkleButton::after {
+  content: '';
+  @apply absolute w-2 h-2 bg-purple-500 opacity-0; 
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  ); 
+  animation: sparkle 1.5s infinite ease-in-out; 
+  pointer-events: none;
+}
+
+.sparkleButton::before {
+  @apply top-1/4 left-1/4; 
+  animation-delay: 0.3s;
+}
+
+.sparkleButton::after {
+  @apply bottom-1/4 right-1/4;
+  animation-delay: 0.6s;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+ 
