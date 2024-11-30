@@ -4,8 +4,3 @@
   text-align: center;
 }
 
-.title {
-  @apply text-4xl font-bold text-pink-300 mb-6; 
-  text-shadow: 2px 2px 4px rgba(49, 18, 34, 0.5); 
-}
- 

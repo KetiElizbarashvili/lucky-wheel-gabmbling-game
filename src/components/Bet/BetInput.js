@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./betInput.module.css";
 
 const BetInput = ({ bet, setBet }) => {
-  const handleBetChange = (e) => {
+  const handleBetChange = (e) => { 
     const value = e.target.value;
     setBet(value === "" ? "" : Number(value)); 
   };
