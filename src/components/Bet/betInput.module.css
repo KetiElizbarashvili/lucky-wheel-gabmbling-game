@@ -3,7 +3,7 @@
 }
 
 .input {
-  @apply w-full border border-pink-400 rounded-lg px-4 py-2 text-pink-600 bg-pink-50 focus:outline-none focus:ring-4 focus:ring-pink-500 shadow-md; 
+  @apply w-full border border-pink-200 rounded-lg px-4 py-2 text-pink-300 bg-pink-50 focus:outline-none focus:ring-4 focus:ring-pink-200 shadow-md; 
 }
 
 .sparkle {

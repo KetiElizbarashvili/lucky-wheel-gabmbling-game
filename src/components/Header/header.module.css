@@ -1,0 +1,23 @@
+.header {
+    @apply fixed top-0 left-0 w-full flex items-center justify-between p-6 shadow-md z-10 h-20 bg-gradient-to-r from-pink-200; 
+  }
+  
+  .title {
+    @apply text-4xl font-bold mb-0 text-pink-100;
+  }
+  
+  .balance {
+    @apply text-lg font-semibold text-pink-800 bg-pink-100 px-8 py-2 rounded-full shadow-md;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+   

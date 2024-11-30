@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import StarryBackground from "./components/Background/StarryBackground";
-import BalanceDisplay from "./components/Balance/BalanceDisplay";
 import BetInput from "./components/Bet/BetInput";
-import SpinButton from "./components/Spin/SpinButton";
-import styles from "./App.module.css"; 
+import Wheel from "./components/Wheel/Wheel";
+import Header from "./components/Header/Header";
+import styles from "./App.module.css";
 
 const App = () => {
   const [balance, setBalance] = useState(200); 
@@ -15,16 +15,15 @@ const App = () => {
       return;
     }
     setBalance((prevBalance) => prevBalance - bet); 
-    alert("Spin the wheel!"); 
+    alert("Spin the wheel!");
   };
 
   return (
     <div className={styles.appContainer}>
       <StarryBackground />
-      <h1 className={styles.title}>Lucky Wheel</h1>
-      <BalanceDisplay balance={balance} />
+      <Header balance={balance} />
       <BetInput bet={bet} setBet={setBet} />
-      <SpinButton onSpin={handleSpin} />
+      <Wheel onSpinEnd={handleSpin} />
     </div>
   );
 };

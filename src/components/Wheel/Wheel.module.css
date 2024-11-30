@@ -1,0 +1,73 @@
+.wheelContainer {
+  @apply flex flex-col items-center justify-center relative mt-8;
+}
+
+.wheel {
+  @apply relative w-96 h-96 rounded-full border-4 border-pink-200 overflow-hidden;
+  transition: transform 4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  background: radial-gradient(circle, #fff, #ffe4e1);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.segment {
+  @apply absolute w-full h-full flex items-center justify-center text-white font-bold text-sm;
+  transform-origin: 50% 50%;
+  clip-path: polygon(50% 50%, 100% 50%, 100% 100%, 100% 100%);
+}
+
+.segmentLabel {
+  @apply absolute text-center;
+  top: 25%;
+  left: 90%;
+  transform: translate(-50%, -50%) rotate(calc(-1 * var(--angle, 0deg)));
+  transform-origin: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: rgb(197, 146, 194);
+  text-shadow: 0px 2px 4px rgba(131, 97, 148, 0.3);
+   -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
+
+
+
+.segment span {
+  @apply absolute text-center;
+  top: 60%;
+  left: 80%;
+  transform: translate(-50%, -50%) rotate(calc(-1 * var(--angle, 0deg)));
+  transform-origin: center;
+  white-space: nowrap;
+}
+
+.arrow {
+  @apply absolute top-[-40px] w-0 h-0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 30px solid #6c757d;
+}
+
+.spinButton {
+  @apply absolute bg-gradient-to-r from-pink-500 via-pink-400 to-pink-500 text-white font-bold rounded-full shadow-lg;
+  width: 60px;
+  height: 60px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.spinButton:hover {
+  transform: scale(1.1) translate(-50%, -50%);
+  box-shadow: 0px 6px 15px rgba(255, 105, 180, 0.6);
+}
+
+.spinButton:disabled {
+  @apply bg-gray-300 text-gray-200 cursor-not-allowed;
+}
