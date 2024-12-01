@@ -1,27 +1,24 @@
 export const segments = [
-    { label: "$2", color: "bg-pink-100", weight: 1 },
-    { label: "$4", color: "bg-pink-200", weight: 1 },
-    { label: "$8", color: "bg-pink-300", weight: 1 },
-    { label: "$16", color: "bg-pink-400", weight: 1 },
-    { label: "$32", color: "bg-pink-300", weight: 1 },
-    { label: "$64", color: "bg-pink-200", weight: 1 },
-    { label: "$128", color: "bg-pink-100", weight: 1 },
-    { label: "Lose", color: "bg-pink-400", weight: 1 },
-  ];
-  
+  { label: "2x", value: 2, weight: 1, color: "#fbcfe8" },
+  { label: "4x", value: 4, weight: 1, color: "#f9a8d4" },
+  { label: "8x", value: 8, weight: 1, color: "#fbcfe8" },
+  { label: "Lose", value: 0, weight: 1, color: "#faf5ff" },
+  { label: "16x", value: 16, weight: 1, color: "#f9a8d4" },
+  { label: "32x", value: 32, weight: 1, color: "#fbcfe8" },
+  { label: "64x", value: 32, weight: 1, color: "#f9a8d4" },
+  { label: "Lose", value: 0, weight: 1, color: "#faf5ff" },
+];
 
-  export const getRandomSegment = () => {
-    const totalWeight = segments.reduce((sum, seg) => sum + seg.weight, 0); 
-    const random = Math.random() * totalWeight;
-  
-    let cumulativeWeight = 0;
-    for (const segment of segments) {
-      cumulativeWeight += segment.weight; 
-      if (random < cumulativeWeight) {
-        return segment.label; 
-      }
+export const getRandomSegment = () => {
+  const totalWeight = segments.reduce((sum, seg) => sum + seg.weight, 0);
+  const random = Math.random() * totalWeight;
+
+  let cumulativeWeight = 0;
+  for (const segment of segments) {
+    cumulativeWeight += segment.weight;
+    if (random < cumulativeWeight) {
+      return segment.label;
     }
-  
-    return null; 
-  };
-  
+  }
+  return null;
+};

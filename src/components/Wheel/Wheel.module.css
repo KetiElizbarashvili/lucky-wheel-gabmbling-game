@@ -3,10 +3,8 @@
 }
 
 .wheel {
-  @apply relative w-96 h-96 rounded-full border-4 border-pink-200 overflow-hidden;
+  @apply relative w-96 h-96 rounded-full border-4 border-pink-200 overflow-hidden shadow-lg;
   transition: transform 4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-  background: radial-gradient(circle, #fff, #ffe4e1);
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .segment {
@@ -23,14 +21,12 @@
   transform-origin: center;
   font-size: 1.2rem;
   font-weight: bold;
-  color: rgb(197, 146, 194);
+  color: #7c5d7f;
   text-shadow: 0px 2px 4px rgba(131, 97, 148, 0.3);
-   -webkit-animation:spin 4s linear infinite;
-    -moz-animation:spin 4s linear infinite;
-    animation:spin 4s linear infinite;
+  -webkit-animation: spin 4s linear infinite;
+  -moz-animation: spin 4s linear infinite;
+  animation: spin 4s linear infinite;
 }
-
-
 
 .segment span {
   @apply absolute text-center;
@@ -41,33 +37,16 @@
   white-space: nowrap;
 }
 
-.arrow {
-  @apply absolute top-[-40px] w-0 h-0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-bottom: 30px solid #6c757d;
-}
-
 .spinButton {
-  @apply absolute bg-gradient-to-r from-pink-500 via-pink-400 to-pink-500 text-white font-bold rounded-full shadow-lg;
-  width: 60px;
-  height: 60px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transform-origin: center; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
-  cursor: pointer;
+  @apply mt-8 bg-gradient-to-r from-pink-300 to-pink-200 text-white font-bold w-20 h-20 rounded-full flex justify-center items-center cursor-pointer shadow-md transition-transform duration-200 ease-in-out;
 }
 
 .spinButton:hover {
-  transform: scale(1.1) translate(-50%, -50%);
-  box-shadow: 0px 6px 15px rgba(255, 105, 180, 0.6);
+  @apply scale-105;
 }
 
-.spinButton:disabled {
-  @apply bg-gray-300 text-gray-200 cursor-not-allowed;
-}
+.highlight {
+  background-color: #957098 !important;
+  color: white;
+  animation: highlightPulse 1s infinite;
+} 

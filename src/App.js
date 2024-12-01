@@ -6,27 +6,17 @@ import Header from "./components/Header/Header";
 import styles from "./App.module.css";
 
 const App = () => {
-  const [balance, setBalance] = useState(200); 
-  const [bet, setBet] = useState("0"); 
-
-  const handleSpin = () => {
-    if (bet <= 0 || bet > balance) {
-      alert("Invalid bet amount!");
-      return;
-    }
-    setBalance((prevBalance) => prevBalance - bet); 
-    alert("Spin the wheel!");
-  };
+  const [balance, setBalance] = useState(200);
+  const [bet, setBet] = useState(0);
 
   return (
     <div className={styles.appContainer}>
       <StarryBackground />
       <Header balance={balance} />
       <BetInput bet={bet} setBet={setBet} />
-      <Wheel onSpinEnd={handleSpin} />
+      <Wheel balance={balance} setBalance={setBalance} bet={bet} />
     </div>
   );
 };
 
 export default App;
- 
