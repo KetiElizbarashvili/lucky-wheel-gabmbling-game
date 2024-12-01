@@ -1,10 +1,11 @@
 .container {
   @apply mt-8 p-4 rounded-lg shadow-lg;
-  background: linear-gradient(to bottom, #ffe4f0, #ffcfe3, #ffbcd7); /* Pink gradient */
+  background: linear-gradient(to bottom, #ffe4f0, #ffcfe3, #ffbcd7); 
 }
 
 .title {
-  @apply text-2xl font-bold text-pink-700 text-center mb-4;
+  @apply text-3xl font-bold text-pink-400 text-center mb-4;
+
 }
 
 .list {

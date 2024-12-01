@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styles from "./Wheel.module.css";
 import { segments, getRandomSegment } from "./WheelLogic";
 
-const Wheel = ({ onSpinStart, onSpinEnd, balance, setBalance, bet }) => {
+const Wheel = ({ onSpinStart, onSpinEnd, balance, bet }) => {
   const [rotation, setRotation] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
   const [winningIndex, setWinningIndex] = useState(null);
 
+  const winSoundRef = useRef(null);
+  const loseSoundRef = useRef(null);
+
   const handleSpin = () => {
-    if (isSpinning) return;
+    if (isSpinning || cooldown > 0) return;
 
     if (bet <= 0 || bet > balance) {
       alert("Invalid bet amount!");
@@ -38,12 +42,38 @@ const Wheel = ({ onSpinStart, onSpinEnd, balance, setBalance, bet }) => {
           ? 0
           : bet * parseInt(selectedSegment.label.replace("x", ""), 10);
 
+      if (selectedSegment.label === "Lose") {
+        if (loseSoundRef.current) loseSoundRef.current.play();
+      } else {
+        if (winSoundRef.current) winSoundRef.current.play();
+      }
+
       if (onSpinEnd) onSpinEnd(selectedSegment.label, winnings);
+
+      startCooldown();
     }, 4000);
+  };
+
+  const startCooldown = () => {
+    const cooldownTime = 5;
+    setCooldown(cooldownTime);
+
+    const interval = setInterval(() => {
+      setCooldown((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
   };
 
   return (
     <div className={styles.wheelContainer}>
+      <audio ref={winSoundRef} src="/audio/win.mp3" />
+      <audio ref={loseSoundRef} src="/audio/lose.mp3" />
+
       <div
         className={styles.wheel}
         style={{ transform: `rotate(${rotation}deg)` }}
@@ -66,9 +96,9 @@ const Wheel = ({ onSpinStart, onSpinEnd, balance, setBalance, bet }) => {
       <button
         className={styles.spinButton}
         onClick={handleSpin}
-        disabled={isSpinning}
+        disabled={isSpinning || cooldown > 0}
       >
-        Spin
+        {cooldown > 0 ? `Wait ${cooldown}s` : "Spin"}
       </button>
     </div>
   );
