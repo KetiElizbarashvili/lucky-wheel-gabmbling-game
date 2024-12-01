@@ -1,11 +1,11 @@
 export const segments = [
   { label: "2x", value: 2, weight: 1, color: "#fbcfe8" },
   { label: "4x", value: 4, weight: 1, color: "#f9a8d4" },
-  { label: "8x", value: 8, weight: 1, color: "#fbcfe8" },
   { label: "Lose", value: 0, weight: 1, color: "#faf5ff" },
+  { label: "8x", value: 8, weight: 1, color: "#fbcfe8" },
   { label: "16x", value: 16, weight: 1, color: "#f9a8d4" },
-  { label: "32x", value: 32, weight: 1, color: "#fbcfe8" },
-  { label: "64x", value: 32, weight: 1, color: "#f9a8d4" },
+  { label: "Lose", value: 0, weight: 1, color: "#faf5ff" },
+  { label: "32x", value: 32, weight: 1, color: "#f9a8d4" },
   { label: "Lose", value: 0, weight: 1, color: "#faf5ff" },
 ];
 

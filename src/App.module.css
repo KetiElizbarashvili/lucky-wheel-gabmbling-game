@@ -1,17 +1,12 @@
 .appContainer {
-  @apply relative z-10 flex flex-col items-center justify-center min-h-screen; 
+  @apply relative z-10 flex flex-row items-center justify-center min-h-screen gap-12; 
   background: linear-gradient(135deg, #ffe1fc, #ffb6c1);
-  text-align: center;
 }
 
-.message {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #ff69b4;
-  margin-top: 1rem;
-  text-align: center;
-  animation: fadeIn 1s ease-in-out;
-}
+.Container{
+@apply flex flex-col items-center justify-center gap-4;
+} 
+
 
 @keyframes fadeIn {
   from {
@@ -21,3 +16,4 @@
     opacity: 1;
   }
 }
+

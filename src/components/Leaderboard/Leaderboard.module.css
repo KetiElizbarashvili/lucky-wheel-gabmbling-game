@@ -1,0 +1,24 @@
+.container {
+  @apply mt-8 p-4 rounded-lg shadow-lg;
+  background: linear-gradient(to bottom, #ffe4f0, #ffcfe3, #ffbcd7); /* Pink gradient */
+}
+
+.title {
+  @apply text-2xl font-bold text-pink-700 text-center mb-4;
+}
+
+.list {
+  @apply space-y-2;
+}
+
+.item {
+  @apply flex justify-between items-center rounded-md shadow-sm p-3 font-semibold;
+  background: #ffffff;
+  color: #ec4899; 
+}
+
+.rank,
+.score {
+  @apply text-lg;
+}
+ 
