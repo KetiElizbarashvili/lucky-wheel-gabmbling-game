@@ -1,72 +1,89 @@
 import React, { useState, useRef } from "react";
 import styles from "./Wheel.module.css";
-import { segments, getRandomSegment } from "./WheelLogic";
+import { segments, spinAPI } from "./WheelLogic";
+import { toast } from "react-toastify";
 
-const Wheel = ({ onSpinStart, onSpinEnd, balance, bet }) => {
+const easeOutCubic = (t) => (--t) * t * t + 1;
+
+const Wheel = React.memo(({ onSpinStart, onSpinEnd, balance = 0, bet = 0 }) => {
+  const GameState = {
+    Idle: "IDLE",
+    Spinning: "SPINNING",
+    Cooldown: "COOLDOWN",
+  };
+
   const [rotation, setRotation] = useState(0);
-  const [isSpinning, setIsSpinning] = useState(false);
-  const [cooldown, setCooldown] = useState(0);
+  const [gameState, setGameState] = useState(GameState.Idle);
   const [winningIndex, setWinningIndex] = useState(null);
 
   const winSoundRef = useRef(null);
   const loseSoundRef = useRef(null);
 
-  const handleSpin = () => {
-    if (isSpinning || cooldown > 0) return;
+  const handleSpin = async () => {
+    if (gameState !== GameState.Idle) return;
 
     if (bet <= 0 || bet > balance) {
-      alert("Invalid bet amount!");
+      toast.error("Invalid bet amount!");
       return;
     }
 
     if (onSpinStart) onSpinStart();
 
-    setIsSpinning(true);
+    try {
+      setGameState(GameState.Spinning);
 
-    const selectedLabel = getRandomSegment();
-    const selectedIndex = segments.findIndex((seg) => seg.label === selectedLabel);
+      const { result, winnings } = await spinAPI(bet);
+      animateWheel(result, winnings);
+    } catch (error) {
+      toast.error(error.message || "Spin failed!");
+      setGameState(GameState.Idle);
+    }
+  };
 
+  const animateWheel = (result, winnings) => {
+    const selectedIndex = segments.findIndex((seg) => seg.label === result);
     const segmentAngle = 360 / segments.length;
     const randomExtraSpins = Math.floor(3 + Math.random() * 3) * 360;
     const targetRotation = randomExtraSpins + selectedIndex * segmentAngle;
 
-    setRotation((prevRotation) => prevRotation + targetRotation);
+    const duration = 2000;
+    const startRotation = rotation;
+    const endRotation = startRotation + targetRotation;
+    const startTime = performance.now();
 
-    setTimeout(() => {
-      setIsSpinning(false);
-      setWinningIndex(selectedIndex);
+    const step = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
 
-      const selectedSegment = segments[selectedIndex];
-      const winnings =
-        selectedSegment.label === "Lose"
-          ? 0
-          : bet * parseInt(selectedSegment.label.replace("x", ""), 10);
+      const easedProgress = easeOutCubic(progress);
+      setRotation(startRotation + easedProgress * (endRotation - startRotation));
 
-      if (selectedSegment.label === "Lose") {
-        if (loseSoundRef.current) loseSoundRef.current.play();
+      if (progress < 1) {
+        requestAnimationFrame(step);
       } else {
-        if (winSoundRef.current) winSoundRef.current.play();
+        finishSpin(result, winnings);
       }
+    };
 
-      if (onSpinEnd) onSpinEnd(selectedSegment.label, winnings);
-
-      startCooldown();
-    }, 4000);
+    requestAnimationFrame(step);
   };
 
-  const startCooldown = () => {
-    const cooldownTime = 5;
-    setCooldown(cooldownTime);
+  const finishSpin = (result, winnings) => {
+    setGameState(GameState.Cooldown);
 
-    const interval = setInterval(() => {
-      setCooldown((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+    if (result === "Lose") {
+      if (loseSoundRef.current) loseSoundRef.current.play();
+      toast.error("You lost!");
+    } else {
+      if (winSoundRef.current) winSoundRef.current.play();
+      toast.success(`You won ${winnings}!`);
+    }
+
+    if (onSpinEnd) onSpinEnd(result, winnings);
+
+    setTimeout(() => {
+      setGameState(GameState.Idle);
+    }, 5000);
   };
 
   return (
@@ -81,9 +98,7 @@ const Wheel = ({ onSpinStart, onSpinEnd, balance, bet }) => {
         {segments.map((segment, index) => (
           <div
             key={index}
-            className={`${styles.segment} ${
-              index === winningIndex ? styles.highlight : ""
-            }`}
+            className={`${styles.segment} ${index === winningIndex ? styles.highlight : ""}`}
             style={{
               transform: `rotate(${(360 / segments.length) * index}deg)`,
               backgroundColor: segment.color,
@@ -96,13 +111,13 @@ const Wheel = ({ onSpinStart, onSpinEnd, balance, bet }) => {
       <button
         className={styles.spinButton}
         onClick={handleSpin}
-        disabled={isSpinning || cooldown > 0}
+        disabled={gameState !== GameState.Idle}
       >
-        {cooldown > 0 ? `Wait ${cooldown}s` : "Spin"}
+        {gameState === GameState.Cooldown ? "Cooldown" : "Spin"}
       </button>
     </div>
   );
-};
+});
 
 export default Wheel;
  

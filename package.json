@@ -13,10 +13,16 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "axios": "^1.7.8",
+    "crypto-js": "^4.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.0.1",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "react-toastify": "^10.0.6",
+    "typescript": "^5.7.2"
   },
   "browserslist": {
     "production": [

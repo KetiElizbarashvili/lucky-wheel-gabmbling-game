@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./header.module.css";
-import BalanceDisplay from "../../components/Balance/BalanceDisplay";
+import BalanceDisplay from "../Balance/BalanceDisplay";
 
 const Header = ({ balance }) => {
   return (
@@ -11,5 +11,5 @@ const Header = ({ balance }) => {
   );
 };
 
-export default Header;
+export default React.memo(Header);
  

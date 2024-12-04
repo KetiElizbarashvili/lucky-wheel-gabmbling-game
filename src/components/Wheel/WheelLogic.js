@@ -1,24 +1,25 @@
 export const segments = [
-  { label: "2x", value: 2, weight: 1, color: "#fbcfe8" },
-  { label: "4x", value: 4, weight: 1, color: "#f9a8d4" },
-  { label: "Lose", value: 0, weight: 1, color: "#faf5ff" },
-  { label: "8x", value: 8, weight: 1, color: "#fbcfe8" },
-  { label: "16x", value: 16, weight: 1, color: "#f9a8d4" },
-  { label: "Lose", value: 0, weight: 1, color: "#faf5ff" },
-  { label: "32x", value: 32, weight: 1, color: "#f9a8d4" },
-  { label: "Lose", value: 0, weight: 1, color: "#faf5ff" },
+  { label: "x2", weight: 10, color: "#ddd6fe" },
+  { label: "x5", weight: 5, color: "#f9a8d4" },
+  { label: "Lose", weight: 50, color: "#fae8ff" },
+  { label: "x10", weight: 2, color: "#fbcfe8" },
 ];
 
-export const getRandomSegment = () => {
-  const totalWeight = segments.reduce((sum, seg) => sum + seg.weight, 0);
-  const random = Math.random() * totalWeight;
-
-  let cumulativeWeight = 0;
-  for (const segment of segments) {
-    cumulativeWeight += segment.weight;
-    if (random < cumulativeWeight) {
-      return segment.label;
-    }
+export const spinAPI = async (bet) => {
+  if (bet <= 0) {
+    throw new Error("Bet must be positive");
   }
-  return null;
+
+  const cumulativeWeights = segments.map(((sum) => (seg) => (sum += seg.weight))(0));
+
+  const array = new Uint32Array(1);
+  crypto.getRandomValues(array);
+  const randomValue = (array[0] / (0xffffffff + 1)) * cumulativeWeights[cumulativeWeights.length - 1];
+
+  const selectedIndex = cumulativeWeights.findIndex((cw) => randomValue < cw);
+  const result = segments[selectedIndex];
+  const winnings = result.label === "Lose" ? 0 : bet * parseInt(result.label.replace("x", ""), 10);
+
+  return { result: result.label, winnings };
 };
+ 

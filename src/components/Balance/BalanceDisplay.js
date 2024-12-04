@@ -9,5 +9,5 @@ const BalanceDisplay = ({ balance }) => {
   );
 };
 
-export default BalanceDisplay;
+export default React.memo(BalanceDisplay);
  

@@ -16,5 +16,4 @@ const Leaderboard = ({ leaderboard }) => {
   );
 };
 
-export default Leaderboard;
- 
+export default React.memo(Leaderboard);
