@@ -1,12 +1,24 @@
 .appContainer {
-  @apply relative z-10 flex flex-row items-center justify-center min-h-screen gap-12; 
-  background: linear-gradient(135deg, #ffe1fc, #ffb6c1);
+  @apply relative z-10 flex flex-col items-center justify-center min-h-screen gap-6 bg-gradient-to-br from-pink-200 to-pink-100;
+
+  @apply md:flex-row md:gap-8; 
 }
 
-.Container{
-@apply flex flex-col items-center justify-center gap-4;
-} 
+.Container {
+  @apply flex flex-col items-center justify-center gap-4;
 
+  @apply md:gap-6; 
+}
+
+@media (max-width: 800px) {
+  .appContainer {
+    @apply flex-col gap-4; 
+  }
+
+  .Container {
+    @apply gap-2; 
+  }
+}
 
 @keyframes fadeIn {
   from {
@@ -16,4 +28,4 @@
     opacity: 1;
   }
 }
-
+ 

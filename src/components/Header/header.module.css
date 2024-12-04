@@ -1,13 +1,14 @@
 .header {
-    @apply fixed top-0 left-0 w-full flex items-center justify-between p-6 shadow-md z-10 h-20 bg-gradient-to-r from-pink-200; 
-  }
-  
-  .title {
-    @apply text-4xl font-bold mb-0 text-pink-100;
-  }
-  
+  @apply fixed top-0 left-0 w-full flex flex-col items-center p-4 shadow-md z-10 bg-gradient-to-r from-pink-200 to-pink-100 gap-4
+   sm:flex-row sm:justify-between sm:h-20 sm:gap-6;
+
+}
+
+.title {
+  @apply text-xl font-bold mb-2 text-pink-100 text-center sm:text-3xl sm:mb-0;
+}
   .balance {
-    @apply text-lg font-semibold text-pink-800 bg-pink-100 px-8 py-2 rounded-full shadow-md;
+    @apply text-lg font-semibold text-pink-300 bg-pink-100 px-8 py-2 rounded-full sm:px-6 sm:py-2;
   }
   
   @keyframes fadeIn {
@@ -21,3 +22,21 @@
     }
   }
    
+
+  .muteButton {
+    @apply bg-pink-300 text-white font-semibold py-2 px-4 rounded shadow-lg cursor-pointer ;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .muteButton:hover {
+    @apply bg-pink-200;
+  }
+  
+  .muteButton:active {
+    @apply transform scale-95;
+  }
+  
+  .muteButton:focus {
+    @apply outline-none ring-2 ring-pink-300;
+  }
+    

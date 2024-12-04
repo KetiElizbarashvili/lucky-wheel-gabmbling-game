@@ -61,28 +61,30 @@ const Wheel = React.memo(({ onSpinStart, onSpinEnd, balance = 0, bet = 0 }) => {
       if (progress < 1) {
         requestAnimationFrame(step);
       } else {
-        finishSpin(result, winnings);
+        finishSpin(result, winnings, selectedIndex);
       }
     };
 
     requestAnimationFrame(step);
   };
 
-  const finishSpin = (result, winnings) => {
+  const finishSpin = (result, winnings, selectedIndex) => {
     setGameState(GameState.Cooldown);
+    setWinningIndex(selectedIndex);
 
     if (result === "Lose") {
       if (loseSoundRef.current) loseSoundRef.current.play();
       toast.error("You lost!");
     } else {
       if (winSoundRef.current) winSoundRef.current.play();
-      toast.success(`You won ${winnings}!`);
+      toast.success(`You won $${winnings}!`);
     }
 
     if (onSpinEnd) onSpinEnd(result, winnings);
 
     setTimeout(() => {
       setGameState(GameState.Idle);
+      setWinningIndex(null); 
     }, 5000);
   };
 
@@ -98,7 +100,9 @@ const Wheel = React.memo(({ onSpinStart, onSpinEnd, balance = 0, bet = 0 }) => {
         {segments.map((segment, index) => (
           <div
             key={index}
-            className={`${styles.segment} ${index === winningIndex ? styles.highlight : ""}`}
+            className={`${styles.segment} ${
+              index === winningIndex ? styles.highlight : ""
+            }`}
             style={{
               transform: `rotate(${(360 / segments.length) * index}deg)`,
               backgroundColor: segment.color,
